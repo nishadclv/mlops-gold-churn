@@ -1,0 +1,6 @@
+catalog: ds_training_1
+schema: mlops_churn
+cluster_id: <PROCESSOR_CLUSTER_ID>      # Replace with your Databricks cluster ID
+experiment_path: /Shared/mlops-gold-churn/experiments
+model_name: ds_training_1.mlops_churn.churn_model
+source_table: ds_training_1.mlops_dataset.car_price  # Change to your churn table
