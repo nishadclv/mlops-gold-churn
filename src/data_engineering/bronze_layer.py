@@ -5,15 +5,14 @@ from src.common.config import settings
 
 logger = get_structured_logger("bronze_layer")
 
-def ingest_raw_data(spark: SparkSession, source_path: str) -> DataFrame:
-    logger.info("Ingesting raw data", source_path=source_path)
+def ingest_raw_data(spark: SparkSession, source_table: str) -> DataFrame:
+    logger.info("Ingesting raw data", source_table=source_table)
+    
+    # Read from Unity Catalog table (your uploaded CSV)
     df = (
-        spark.read
-        .option("header", True)
-        .option("inferSchema", True)
-        .csv(source_path)
+        spark.table(source_table)
         .withColumn("_ingestion_timestamp", current_timestamp())
-        .withColumn("_source_file", input_file_name())
+        .withColumn("_source_file", lit(source_table))
         .withColumn("_bronze_version", lit("v1.0"))
     )
     return df
