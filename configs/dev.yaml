@@ -3,6 +3,7 @@ token: "dapi83d2f1a4501b1c6db4fd0188bec3aea0-3"
 cluster_id: "0826-105928-frmwcb7g"
 catalog: "ds_training_1"
 schema: "mlops_churn"
+source_table: "ds_training_1.mlops_churn.raw_customer_data"
 model_name: "churn_prediction_model"
 experiment_path: "/Shared/mlops-experiments"
 environment: dev
