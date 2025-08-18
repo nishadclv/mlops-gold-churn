@@ -1,0 +1,51 @@
+{
+  "python.defaultInterpreterPath": "./.venv/bin/python",
+  
+  // Testing configuration
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": [
+    "tests",
+    "--verbose",
+    "--cov=src",
+    "--cov-report=html",
+    "--cov-report=xml",
+    "--cov-fail-under=85"
+  ],
+  
+  // Code quality
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length", "88"],
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  
+  // Git integration for GitHub workflow
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.postCommitCommand": "push",
+  
+  // File exclusions
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    ".pytest_cache": true,
+    ".coverage": true,
+    "htmlcov": true,
+    ".mypy_cache": true
+  },
+  
+  // IntelliSense and type checking
+  "python.analysis.typeCheckingMode": "strict",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.completeFunctionParens": true,
+  
+  // Documentation
+  "autoDocstring.docstringFormat": "google",
+  "autoDocstring.generateDocstringOnEnter": true
+}
