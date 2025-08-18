@@ -1,0 +1,102 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run All Tests",
+      "type": "shell",
+      "command": "pytest",
+      "args": [
+        "tests/",
+        "-v",
+        "--cov=src",
+        "--cov-report=html",
+        "--cov-report=xml",
+        "--cov-fail-under=85"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Code Quality Check",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "echo '🔍 Running code quality checks...' && black --check . && isort --check-only . && flake8 . && mypy src/ && echo '✅ All quality checks passed!'"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Commit and Push to GitHub",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "echo '📝 Committing changes...' && git add -A && git commit -m '${input:commitMessage}' && git push && echo '✅ Changes pushed to GitHub!'"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Deploy Bundle to Databricks",
+      "type": "shell",
+      "command": "databricks",
+      "args": ["bundle", "deploy", "--target", "${input:environment}"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Full Workflow: Test → Quality → Commit → Push",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Run All Tests",
+        "Code Quality Check",
+        "Commit and Push to GitHub"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "commitMessage",
+      "description": "Commit message",
+      "default": "Update MLOps pipeline code",
+      "type": "promptString"
+    },
+    {
+      "id": "environment",
+      "description": "Deployment environment",
+      "default": "dev",
+      "type": "pickString",
+      "options": ["dev", "staging", "prod"]
+    }
+  ]
+}
