@@ -1,0 +1,8 @@
+workspace_url: "https://<your-databricks-workspace-url>"
+token: "your-databricks-token"
+cluster_id: "your-cluster-id"
+catalog: "ds_training_1"
+schema: "mlops_churn"
+model_name: "churn_prediction_model"
+experiment_path: "/Shared/mlops-experiments"
+environment: dev
